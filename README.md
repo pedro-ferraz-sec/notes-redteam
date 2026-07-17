@@ -2,10 +2,8 @@
 
 Repositório de anotações de estudo sobre segurança ofensiva.
 
-## 📂 Índice
+## 📂 Estrutura
 
-### Enumeração
-- [Nmap Cheatsheet](./enumeracao/nmap-cheatsheet.md)
-
----
-> 🚧 Repositório em construção — atualizado conforme avanço nos estudos.
+- [🌐 01 — Redes](./01-redes/README.md)
+- [🔴 02 — Red Team (MITRE ATT&CK)](./02-redteam-mitre-attack/README.md)
+- [🎯 03 — Máquinas Atacadas e Explicadas](./03-maquinas-atacadas-explicadas/README.md)
