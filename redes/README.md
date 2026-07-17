@@ -5,7 +5,7 @@ com Red Team e cibersegurança em geral.
 
 ## Índice
 
-1. [Fundamentos de Redes para Red Team](./fundamentos-redes-para-redteam.md)
+1. [Fundamentos de Redes para Red Team](./Subnetting-para-Pentest.md)
 
 ---
 > 🚧 Em construção — atualizado conforme avanço nos estudos.
