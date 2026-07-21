@@ -2,7 +2,7 @@
 
 ## 1. Objetivo
 
-Entender na prática como funcionam **endereços IP**, **máscaras de sub-rede** e **notação CIDR** usando comandos reais do Ubuntu. Ao final, você saberá interpretar rapidamente o tamanho de uma rede e planejar varreduras eficientes para pentest.
+Neste material, você vai entender na prática como funcionam **endereços IP**, **máscaras de sub-rede** e **notação CIDR** usando comandos reais do Ubuntu. Ao final, você saberá interpretar rapidamente o tamanho de uma rede e planejar varreduras eficientes para pentest.
 
 ---
 
@@ -107,7 +107,7 @@ Broadcast address: 192.168.1.255
 Usable IPs: 254
 ```
 
-Viu? `/24` = `255.255.255.0` = **254 hosts utilizáveis**
+Veja: `/24` = `255.255.255.0` = **254 hosts utilizáveis**
 <img width="708" height="200" alt="image" src="https://github.com/user-attachments/assets/fb542390-e4bc-4566-a2a5-600af1f3fb43" />
 
 ---
@@ -162,7 +162,7 @@ Usable IPs: 65534
 
 ### **E. Tabela de Referência Rápida**
 
-Memorize essas conversões:
+Vale a pena memorizar essas conversões:
 
 | CIDR | Máscara | Hosts |
 |------|---------|-------|
@@ -198,9 +198,9 @@ Host is up (0.005s latency).
 ...
 3 hosts up scanned in 0.34s
 ```
-Para fins didáticos, iniciei uma máquina virtual com o Kali Linux para demonstrar como identificar os hosts presentes na rede 192.168.100.0/24.
+Para fins didáticos, subimos uma máquina virtual com o Kali Linux para demonstrar como identificar os hosts presentes na rede 192.168.100.0/24.
 <img width="804" height="248" alt="image" src="https://github.com/user-attachments/assets/936c9205-9ef9-4b8c-ab40-6d82698b1f0d" />
-Como é possível observar, foi identificado o endereço 192.168.100.40, que corresponde ao IP da minha máquina virtual Kali Linux.
+Observe que foi identificado o endereço 192.168.100.40, que corresponde ao IP da máquina virtual Kali Linux.
 Isso acontece porque tanto o Ubuntu quanto o Kali estão conectados à mesma sub-rede 192.168.100.0/24 (Host-Only). Como compartilham a mesma rede, eles conseguem se comunicar entre si e, durante a varredura, ambos são detectados.
 
 - **254 IPs para verificar** → scan rápido (~1s)
@@ -250,7 +250,7 @@ Ação: Faço o scan nmap -sn 192.168.1.0/24
 ✅ **Calcular hosts em qualquer CIDR:**
 ```bash
 $ ipcalc 10.50.0.0/22
-Usable IPs: 1022  ← Sou rápido!
+Usable IPs: 1022  ← Direto ao ponto!
 ```
 
 ✅ **Planejar varreduras eficientes:**
@@ -260,7 +260,7 @@ Usable IPs: 1022  ← Sou rápido!
 
 ---
 
-## 5. O que Aprendi
+## 5. Pontos-Chave
 
 ### **Regra de Ouro:**
 
@@ -284,7 +284,7 @@ $ ipcalc <IP/CIDR>
 ```
 
 ### **Para Certificações (CompTIA Security+, eJPT, PNPT):**
-Decore a tabela de CIDR/Máscara/Hosts. Qualquer pergunta sobre redes usa isso.
+Vale decorar a tabela de CIDR/Máscara/Hosts. Qualquer pergunta sobre redes usa isso.
 
 ---
 
