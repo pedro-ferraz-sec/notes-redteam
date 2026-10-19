@@ -1,9 +1,9 @@
-# Notes — Red Team
+# Introdução
 
-Repositório de anotações de estudo sobre segurança ofensiva.
+Repositório central de anotações e projetos práticos de cibersegurança — da base de redes à detecção em SOC, passando por laboratório próprio e certificações.
 
 ## 📂 Estrutura
 
-- [🌐 01 — Redes](./redes/README.md)
-- [🔴 02 — Red Team (MITRE ATT&CK)](./redteam-mitre-attack/README.md)
-- [🎯 03 — Máquinas Atacadas e Explicadas](./maquinas-atacadas-explicadas/README.md)
+- [🌐 Fundamentos de Redes para Segurança — Conceitos de rede aplicados a Red Team e Blue Team: reconhecimento, movimentação lateral, defesa e detecção](./redes/README.md)
+- [🧪 SOC Home Lab — Do Zero à Detecção — Como montei meu laboratório próprio: Kali (atacante) → Ubuntu (alvos) → Wazuh (SIEM), com ataques executados, detectados e documentados](./maquinas-atacadas-explicadas/README.md)
+- [🎓 Jornada CompTIA Security+ (SY0-701) — Material de estudo organizado por domínios e simulados].()
