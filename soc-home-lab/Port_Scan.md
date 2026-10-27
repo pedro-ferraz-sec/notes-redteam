@@ -97,7 +97,7 @@ O scan gerou 396 conexões bloqueadas, e minha regra capturou todas elas no SIEM
 
 ---
 
-## 7. Conceitos demonstrados (para entrevista)
+## 7. Conceitos demonstrados
 
 - Diferença entre detecção por log de aplicação e por **log de rede/firewall**
 - Configuração de coleta de log customizada no agente Wazuh (ossec.conf)
