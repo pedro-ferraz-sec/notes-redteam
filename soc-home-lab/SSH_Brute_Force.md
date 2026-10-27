@@ -127,7 +127,7 @@ Kali ataca → regra 100002 dispara (5 falhas/120s/mesmo IP)
 
 ---
 
-## 8. Conceitos demonstrados (para entrevista)
+## 8. Conceitos demonstrados
 
 - Detecção de força bruta via correlação de eventos (limiar + janela + agrupador)
 - Escrita e teste de regra customizada no Wazuh (`local_rules.xml`, `wazuh-logtest`)
