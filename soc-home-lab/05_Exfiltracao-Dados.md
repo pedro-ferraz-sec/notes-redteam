@@ -60,7 +60,7 @@ O NetScan entregou o mapa do alvo: **16 portas abertas** e, crucialmente, aponto
 - Porta 23 — Telnet exposto
 - Risco do host: ALTO (53/100), 3 más configurações
 
-> 📸 PRINT AQUI: o resumo da varredura do NetScan (as 16 portas e o veredito "Risco ALTO").
+<img width="1009" height="1176" alt="Captura de tela 2026-11-08 150546" src="https://github.com/user-attachments/assets/159ea4f7-87a7-4ff9-afec-dff5e3ba30ab" />
 
 > 💡 O NetScan gera relatório em **JSON Lines** (`tipo:config`, `tipo:diff`) — formato que o Wazuh consome direto. Isso será usado na detecção.
 
@@ -82,7 +82,7 @@ get dados_clientes.txt   # baixar o arquivo DESCOBERTO (não adivinhado)
 bye
 ```
 
-> 📸 PRINT AQUI: a sessão FTP com o `ls -la` mostrando o `dados_clientes.txt`, seguido do `get` com "Transfer complete".
+<img width="1128" height="398" alt="Captura de tela 2026-11-08 155421" src="https://github.com/user-attachments/assets/3a143387-b961-4eeb-8290-8695212fa98c" />
 
 Resultado: o arquivo `dados_clientes.txt` (71 bytes, "dado confidencial") saiu do servidor-vítima para a máquina do atacante. **Exfiltração concluída.**
 
@@ -111,7 +111,7 @@ Client "192.168.100.40", "RETR dados_clientes.txt"           ← o atacante PEDI
 "226 Transfer complete."                                     ← o dado saiu
 ```
 
-> 📸 PRINT AQUI: o `vsftpd.log` com as linhas `RETR` e `DOWNLOAD` destacadas.
+<img width="1177" height="381" alt="Captura de tela 2026-11-08 164430" src="https://github.com/user-attachments/assets/edb2f82f-f159-41b2-b3bb-d68066a7a07d" />
 
 > 💡 **Lição de SOC — as duas camadas de log:** o **xinetd** é a camada de *conexão* ("alguém abriu o FTP"). O **vsftpd.log** é a camada de *aplicação* ("essa pessoa baixou ESTE arquivo"). Para detectar exfiltração, você precisa da camada de aplicação — a de conexão sozinha não conta o roubo.
 
@@ -124,7 +124,7 @@ sudo grep "192.168.100.40" /var/log/syslog | head -40
 
 A assinatura do scan apareceu: vários serviços (Telnet, SMTP...) recebendo conexão do **mesmo IP, no mesmo segundo**, com o SMTP registrando "lost connection after CONNECT" (conectou e saiu).
 
-> 📸 PRINT AQUI: os logs mostrando as conexões em rajada no mesmo segundo (a assinatura do port scan).
+<img width="789" height="468" alt="Captura de tela 2026-11-08 161534" src="https://github.com/user-attachments/assets/d55487df-2abd-4e40-8367-3906a21540cd" />
 
 > 💡 **Lição:** um port scan é um fantasma nos logs de aplicação — aparece só nos poucos serviços que logam conexão e some no resto. Por isso scan se detecta por **rede** (como no Ataque 2), não por log de aplicação.
 
@@ -176,9 +176,10 @@ As regras (em `/var/ossec/etc/rules/local_rules.xml`):
 
 **A escolha do `RETR`:** é o comando que o cliente envia *pedindo* o arquivo — detecta a intenção no momento mais cedo possível, antes do dado terminar de sair. A regra usa cascata (`<if_sid>`): primeiro confirma que é log de FTP (100040), depois verifica se é um download (100041).
 
-> 📸 PRINT AQUI: o `wazuh-logtest` casando a regra 100041 com a linha REAL do RETR ("Alert to be generated").
+<img width="1177" height="545" alt="Captura de tela 2026-11-08 164952" src="https://github.com/user-attachments/assets/cd6adea2-d3a3-44b0-8006-e7f8cd29feef" />
 
-> 📸 PRINT AQUI: o alerta 100041 no dashboard, com o `full_log` mostrando o RETR, o IP do atacante (.40) e a vítima (.50).
+<img width="1210" height="604" alt="Captura de tela 2026-11-08 165211" src="https://github.com/user-attachments/assets/cd80c38c-c404-4333-b811-fd13f8c5916e" />
+
 
 ### 5.2 Detecção do recon (ingestão de JSON — técnica nova)
 
@@ -209,9 +210,9 @@ As regras leem **campos JSON** diretamente:
 
 > 💡 **A diferença do JSON:** nos ataques anteriores, sem decoder, a regra ancorava em `<match>` de texto. Com `<log_format>json</log_format>`, o Wazuh **quebra cada linha em campos automaticamente** (`data.tipo`, `data.severidade`) — e a regra lê `<field name="severidade">ALTA</field>` diretamente. É a diferença entre "procurar uma palavra no texto" e "ler o valor de uma coluna". Logs em JSON são o padrão moderno (cloud, APIs, ferramentas de segurança).
 
-> 📸 PRINT AQUI: o `wazuh-logtest` com a **Phase 2** listando os campos JSON extraídos (`severidade`, `tipo`, etc.) e casando a regra 100046.
+<img width="1176" height="587" alt="Captura de tela 2026-11-08 171553" src="https://github.com/user-attachments/assets/9b5c56a2-64cf-46c5-bd20-9425a31b09b2" />
 
-> 📸 PRINT AQUI: os alertas 100045 e 100046 no dashboard (o NetScan detectado no SIEM).
+<img width="1213" height="1123" alt="Captura de tela 2026-11-08 173100" src="https://github.com/user-attachments/assets/96cafd3b-ddd9-4af6-a557-8d86c62f57dd" />
 
 ---
 
@@ -230,8 +231,6 @@ Um comando `cat arquivo | tee -a arquivo` (ler e escrever o **mesmo** arquivo) c
 ### 6.3 O alert storm (tempestade de alertas)
 13 linhas de log geraram **650.000 alertas** no dashboard — porque o arquivo inflado de 8 GB foi todo reprocessado antes de ser apagado.
 > **Lição:** ao ver um número absurdo de alertas, a primeira ação é **olhar a janela de tempo** — "isso está acontecendo AGORA ou é histórico?". Estreitar o filtro de tempo (de "10 min" para "2 min") separou o pico passado do estado atual, e confirmou que o loop já tinha parado. Reconhecer e contextualizar um alert storm é habilidade de SOC real.
-
-> 📸 PRINT AQUI (opcional, forte): o dashboard com os 650 mil hits (a "parede" do alert storm) e depois estabilizado em 42.
 
 ---
 
@@ -255,7 +254,7 @@ regra 100046            (investigação)         regra 100041
 
 ---
 
-## 8. Conceitos demonstrados (para entrevista)
+## 8. Conceitos demonstrados
 
 - Cadeia de ataque completa: reconhecimento → enumeração → exfiltração (T1046 → T1190 → T1048)
 - Exfiltração detectada pela SAÍDA (anomalia de comportamento, não assinatura)
@@ -311,7 +310,5 @@ wc -l arquivo.jsonl                          # confirmar tamanho real
 Ferramenta de reconhecimento: **[NetScan](https://github.com/matheusnsp/NetScan)**, desenvolvida por **[@matheusnsp](https://github.com/matheusnsp)**. Obrigado pela ferramenta da comunidade.
 
 ---
-
-> ⚠️ **Antes de publicar:** confira que os prints não mostram dados reais (IP público, senhas, nome de máquina identificável). Os IPs de laboratório (192.168.x.x) são seguros de publicar.
 
 *Projeto realizado em laboratório isolado e controlado, exclusivamente para estudo de detecção e defesa.*
